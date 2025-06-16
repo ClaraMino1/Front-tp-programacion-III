@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #333333;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 86px 64px;
+}
+
+hr {
+    opacity: 0.5;
+}
