@@ -1,4 +1,4 @@
-# Aplicación web de ejemplo
+# Aplicación web para el tp de programacion 3
 
 Pasos para ejecutar el proyecto:
 1. Clonar el repositorio
