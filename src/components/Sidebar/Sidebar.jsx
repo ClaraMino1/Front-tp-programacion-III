@@ -39,14 +39,14 @@ const Sidebar = () => {
   };
 
   return (
-    <div className='sideContainer' style={!collapsed ? {width: "250px"}: undefined}>
-      <div className={`sideFirstDiv ${collapsed ? 'collapsed' : ''}`}>
+    <div className={`sideContainer ${collapsed ? 'collapsed' : ''}`}>
+      <div className={"sideFirstDiv"}>
         <div className="logoContainer">
           <JavaScriptOutlined className="logo"/> {/* Cambiar por un logo que nos guste para la app  */}
-          {!collapsed && <h2 className="sideTitle">Pagina</h2>}
+          <h2 className={`sideTitle ${collapsed ? 'hidden' : ''}`}>Pagina</h2>
         </div>
         <div className={`collapse-button-container ${collapsed ? 'fixed-button' : ''}`}>
-          <Button className="btnCollapser" type="primary" onClick={toggleCollapsed} style={{ marginBottom: 0 }}>
+          <Button className="btnCollapser" type="primary" onClick={toggleCollapsed}>
             {collapsed ? <RightOutlined /> : <LeftOutlined />}
           </Button>
         </div>
