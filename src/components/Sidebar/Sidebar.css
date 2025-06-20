@@ -1,0 +1,115 @@
+/* .sidebar-open {
+    height: 100vh;
+    width: 200px;
+    background: #282c34;
+    color: white;
+    padding: 10px;
+    transition: width 0.3s;
+}
+
+.sidebar-closed {
+    height: 100vh;
+    width: 50px;
+    background: #282c34;
+    color: white;
+    padding: 10px;
+    transition: width 0.3s;
+} */
+
+.sideContainer{
+    height: 100vh;
+}
+
+/* .sideMenu{
+    width: 100%;
+    height: 90%;
+}
+
+.sideFirstDiv{
+    display: flex;
+    justify-content: space-around;
+    height: 80px;
+} */
+
+.sideMenu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+  border-right: 1px solid #f0f0f0;
+  padding: 10px;
+}
+
+/* .sideFirstDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: padding 0.3s;
+  padding-left: 16px;
+  padding-right: 16px;
+} */
+
+.sideFirstDiv {
+  border-right: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: padding 0.3s; /* probar diferencia con padding 0.3s ease;  */
+  padding: 0 16px 0 32px;
+  position: relative;
+  height: 80px;
+  background-color: #f5f5f5;
+}
+.sideFirstDiv.collapsed {
+  /* padding-left: 4px; Mueve el botón hacia la izquierda */
+    align-items: center;
+    justify-content: center;
+    padding-left: 12px;
+}
+
+.sideTitle {
+  transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), margin 0.3s;
+  opacity: 1;
+  margin-right: 8px;
+}
+
+.sideTitle.hidden {
+  opacity: 0;
+  margin-right: 0;
+}
+
+.sideTitle.hidden {
+  opacity: 0;
+  margin-right: 0;
+}
+
+.collapse-button-container {
+  transition: all 0.3s ease;
+}
+
+.fixed-button {
+  position: fixed;
+  top: 29px;
+  left: 66px;
+  z-index: 1000;
+}
+
+
+.logo{
+    font-size: 26px;
+    color: #1677ff;
+}
+
+.btnCollapser{
+    color: #fff;
+    background: #1677ff;
+    width: 25px;
+    height: 23px;
+    padding: 0;
+    opacity: 0.8;
+}
+
+.logoContainer{
+    display: flex;
+    align-items: center;
+}

@@ -25,3 +25,19 @@ a {
 hr {
     opacity: 0.5;
 }
+
+.app-container {
+    display: flex;
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+}
+
+.main-content {
+    flex-grow: 1; /* Ocupa todo el espacio restante */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;  Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    background-color: #ffffff; /* Color de fondo opcional */
+    
+    gap: 100px;
+}
