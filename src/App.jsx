@@ -1,41 +1,33 @@
-import "./App.css";
-import  {Table}  from "./components/Table/Table";
-import { useEffect, useState } from "react";
+import React from "react";
+import "./App.css"; 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar/Sidebar";
+// import EntryLog from "./components/EntryLogs/EntryLog"
+// import RecycleBin from './components/RecycleBin/RecycleBin';
+import Entries from './components/Entries/Entries';
 
-function App() {
-    
-    const columns = [
-    { header: "Autor", key: "id_author" },
-    { header: "Título", key: "title" },
-    { header: "Contenido", key: "text" },
-    { header: "Fecha", key: "creation_date" }
-    ];
+// estas dos lineas se van cuando existan los componentes author y entries
+const Author = () => <h2>Pagina de autores</h2>;
+//const Entries = () => <h2>Pagina de entradas</h2>;
 
-const [entries, setEntries] = useState(undefined);
-
-  async function getEntries() {
-    try {
-      const response = await fetch("http://localhost:8080/entries/");
-      const data = await response.json();
-      setEntries(data);
-    } catch (error) {
-      console.error("Error al obtener entradas:", error);
-    }
-  }
-
-  useEffect(() => {
-    getEntries();
-  }, []);
-
-
-    return (
-        
+const App = () => {
+  return (
     <>
-        <h1>Entradas</h1>
-        {/* se pasa las columnas y un array de objetos(fetch) */}
-        <Table columns={columns} data={entries}/>
+      <Router>
+        <div className="app-container">
+            <Sidebar />
+            <div className="main-content">
+              <Routes>
+                  {/* <Route path="/author" element={<Author />} /> */}
+                  <Route path="/entries" element={<Entries />} />
+                  {/* <Route path="/entryLogs" element={<EntryLog />} />
+                  <Route path="/recycleBin" element={<RecycleBin />} /> */}
+              </Routes>
+            </div>
+        </div>
+      </Router>
     </>
-    );
-}
+  );
+};
 
 export default App;
