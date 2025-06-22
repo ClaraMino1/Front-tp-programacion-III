@@ -21,6 +21,6 @@ const items = [
 const RecycleBin = () => 
     <>
         <Title name="Papelera de reciclaje" />
-        <Tabs className='tabs' defaultActiveKey="1" items={items} onChange={onChange} />;
+        <Tabs className='tabs' defaultActiveKey="1" items={items} onChange={onChange} />
     </>
 export default RecycleBin;

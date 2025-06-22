@@ -1,7 +1,6 @@
-// import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
     UserOutlined,
     LeftOutlined,
@@ -13,6 +12,8 @@ import {
 
 import { Button, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
+
 
 // Lista de elementos del menú con sus respectivas rutas y íconos
 const items = [
@@ -23,9 +24,9 @@ const items = [
 ];
 
 // Componente Sidebar
-const Sidebar = () => {
-    // Estado para controlar si la sidebar está colapsada o expandida
-    const [collapsed, setCollapsed] = useState(false);
+const Sidebar = ({ isDarkMode, toggleTheme }) => {
+    const [collapsed, setCollapsed] = useState(false); // Estado para controlar si la sidebar está colapsada o expandida
+    const [selectedKey, setSelectedKey] = useState("");
     const navigate = useNavigate(); // Hook para manejar la navegación
 
     // Función para cambiar el estado de la sidebar
@@ -35,44 +36,51 @@ const Sidebar = () => {
 
     // Función para manejar la navegación al hacer clic en un elemento del menú
     const handleMenuClick = ({ key }) => {
+        setSelectedKey(key); // actualiza el ítem seleccionado
         navigate(key); // Redirige a la ruta correspondiente
     };
 
     return (
-        <Sider
-            trigger={null}
-            collapsible
-            collapsed={collapsed}
-            data-collapsed={collapsed}
-            theme="light"
-            width={250}
-            collapsedWidth={80}
-            className="sider">
-                
-            <header>
-                <h2>
-                    <span className="collapsedLogo">JS</span>
-                    <span className="expandedLogo">App</span>
-                </h2>
+        <>
+            <Sider
+                trigger={null}
+                collapsible
+                collapsed={collapsed}
+                data-collapsed={collapsed}
+                theme="light"
+                width={250}
+                collapsedWidth={80}
+                className="sider">
+                    
+                <header>
+                    <Link to="/" onClick={() => setSelectedKey("")}>
+                        <h2>
+                            <span className="collapsedLogo">JS</span>
+                            <span className="expandedLogo">Blog</span>
+                        </h2>
+                    </Link>
 
-                <Button
-                    type="primary"
-                    className="toggleButton"
-                    onClick={toggleCollapsed}>
+                    <Button
+                        type="primary"
+                        className="toggleButton"
+                        onClick={toggleCollapsed}>
 
-                    {collapsed ? <RightOutlined /> : <LeftOutlined />}
-                </Button>
-            </header>
+                        {collapsed ? <RightOutlined /> : <LeftOutlined />}
+                    </Button>
+                </header>
 
-            <Menu
-                onClick={handleMenuClick}
-                defaultSelectedKeys={[""]}
-                defaultOpenKeys={[""]}
-                mode="inline"
-                items={items}
-                className="sideMenu"/*esto no deberia hacerse asi*/ 
-            />
-        </Sider>
+                <Menu
+                    onClick={handleMenuClick}
+                    selectedKeys={[selectedKey]}
+                    defaultSelectedKeys={[""]}
+                    defaultOpenKeys={[""]}
+                    mode="inline"
+                    items={items}
+                    className="sideMenu"/*esto no deberia hacerse asi*/ 
+                />
+                <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme}/>
+            </Sider>
+        </>
     );
 };
 

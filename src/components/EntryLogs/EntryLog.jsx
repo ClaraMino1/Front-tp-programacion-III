@@ -3,6 +3,7 @@ import React from 'react';
 import Title from '../Title/Title';
 import { Table } from 'antd';
 import { useEffect, useState } from "react";
+import { LoadingOutlined } from '@ant-design/icons';
 
 const columns = [
   {
@@ -46,7 +47,24 @@ function EntryLog() {
     return(
       <>
         <Title name="Logs de entradas" />
-        <Table columns={columns} dataSource={entrylogs} style={{ width: "95%"}} bordered/>
+        <Table 
+          rowKey="id"
+          style={{ width: "95%"}}
+          columns={columns} 
+          dataSource={entrylogs}  
+          loading={{
+            spinning: !entrylogs.length, //le dice al componente si debe mostrarse el icono de carga. Se activa (true) cuando entrylogs.length es 0, o sea, cuando todavía no llegaron los datos.
+            indicator: //define qué se va a mostrar como ícono de carga
+            <div style={{ marginTop: "58px" }}>
+              <LoadingOutlined spin size="large"/>
+            </div>
+          }}
+          pagination={{
+            pageSize: 9, //cantidad de filas por pagina
+          }}
+          size='small' //tamaño de la tabla
+          bordered //aplica los bordes a la tabla
+        />
       </>
     )
 }
