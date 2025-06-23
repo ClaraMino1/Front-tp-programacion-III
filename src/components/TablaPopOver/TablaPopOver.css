@@ -1,0 +1,19 @@
+.tabla-centro {
+  display: flex;
+  justify-content: center;
+  padding: 100px;
+}
+
+.tabla-wrapper {
+  min-width: 900px;
+  width: 100%;
+  overflow: hidden;
+  background-color: rgb(245, 243, 243);
+}
+.ant-table-cell{
+
+}
+.ant-table-cell:hover{
+
+    background-color: #3e47fadc;
+}
