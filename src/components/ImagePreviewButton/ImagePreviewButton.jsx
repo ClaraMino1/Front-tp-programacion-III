@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./ImagePreviewButton.css"
 import { Popover, Button, Image } from "antd";
 
 /**
@@ -14,11 +15,13 @@ import { Popover, Button, Image } from "antd";
 const ImagePreviewButton = ({ image, name, email, buttonText }) => {
   const [visibleContent, setVisibleContent] = useState(true);
 
-  const handleRemove = () => setVisibleContent(false);
-  const handleRestore = () => setVisibleContent(true);
+  const SetDisable = () => setVisibleContent(false);
+  const SetEnable = () => setVisibleContent(true);
 
+  // Estructura Operador Ternario
+  // {condición} ? (valorSiEsVerdadero) : (valorSiEsFalso)
   const content = (
-    <div style={{ textAlign: "center" }}>
+    <div className="container">
       {visibleContent ? (
         <>
           <Image
@@ -27,16 +30,16 @@ const ImagePreviewButton = ({ image, name, email, buttonText }) => {
             style={{ borderRadius: "50%" }}
             preview={false}
           />
-          <p style={{ marginTop: 15 }}><strong>Name:</strong> {name}</p>
+          <p className="name-container"><strong>Name:</strong> {name}</p>
           <p><strong>E-Mail:</strong> {email}</p>
-          <Button danger size="small" onClick={handleRemove}>
+          <Button danger size="small" onClick={SetDisable}>
             Eliminar
           </Button>
         </>
-      ) : (
+      ):(
         <>
-          <p style={{ color: "gray" }}><em>Contenido eliminado.</em></p>
-          <Button type="dashed" size="small" onClick={handleRestore}>
+          <p className="delete-content"><em>Contenido eliminado.</em></p>
+          <Button type="dashed" size="small" onClick={SetEnable}>
             Restaurar
           </Button>
         </>
