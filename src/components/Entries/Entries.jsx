@@ -4,11 +4,11 @@ import { Table } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 
-
+//Cada objeto del array representa una columna
 const columns = [
   {
-    title: 'Id',
-    dataIndex: 'id',
+    title: 'Id', //header
+    dataIndex: 'id', //contenido
     key: 'id',
   },
   {
@@ -34,35 +34,35 @@ const columns = [
 ]
 
 function Entries() {
-    const [entries, setEntries] = useState([]);
+    const [entries, setEntries] = useState([]); //entries array vacío
 
     async function getEntries() {
         const response = await fetch(
             "http://localhost:8080/entries"
         );
         const data = await response.json();
-        setEntries(data);
+        setEntries(data); //actualiza el estado de entries
     }
 
-    useEffect(() => {
+    useEffect(() => {//Cuando el componente se cree, ejecuta la función getEntries
         getEntries();
-    }, []);
+    }, []); 
 
     return(
       <>
         <Title name="Entradas" />
         <Table 
-        rowKey="id"
+        rowKey="id" //cada fila de datos tiene como clave el campo id
         columns={columns}
         dataSource={entries}
         
         bordered
-        size="small"
-        pagination={{ pageSize: 9 }}
+        size="small" //tamaño de celdas
+        pagination={{ pageSize: 9 }} //hasta 9 entradas por página
         
         
         loading={{
-          spinning: !entries.length,
+          spinning: !entries.length, // si entries está vacío → mostrar loading
           indicator: (
             <div style={{ marginTop: "58px" }}>
               <LoadingOutlined spin size="large" />
