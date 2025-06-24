@@ -8,6 +8,7 @@
   position: relative;
   padding: 0 16px 0 32px;
   transition: padding ease 0.3s;
+  overflow: hidden;
 }
 
 .sider[data-collapsed="true"] header {
@@ -51,12 +52,14 @@ body.dark-mode :where(.css-dev-only-do-not-override-36gkoj) a:hover {
   padding: 0;
   opacity: 0.8;
   transition: all ease 0.3s;
+ 
 }
 
 .sider[data-collapsed="true"] .toggleButton {
   position: absolute;
   right: 0;
   transform: translate(50%, 0);
+  
 }
 
 .sider ul {

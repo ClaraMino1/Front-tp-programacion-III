@@ -21,6 +21,7 @@ const HomePage = () => {
 
   return (
     <>
+    <div className='container-home'>
       <Title name="Pagina de inicio" />
       <h2 className='subtitle-home'>Publicaciones <span>recientes</span></h2>
 
@@ -54,6 +55,7 @@ const HomePage = () => {
                 />
               </Card>
             ))}
+      </div>
       </div>
     </>
   );

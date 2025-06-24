@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Title from '../Title/Title';
+import Title from '../../components/Title/Title';
 import { Table } from 'antd';
 import { useEffect, useState } from "react";
 import { LoadingOutlined } from '@ant-design/icons';

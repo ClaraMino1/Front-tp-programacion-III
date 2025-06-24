@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Title from '../Title/Title';
+import Title from '../../components/Title/Title';
 import { Table } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
@@ -10,7 +10,6 @@ const columns = [
     title: 'Id',
     dataIndex: 'id',
     key: 'id',
-    render: text => <a>{text}</a>,
   },
   {
     title: 'Autor id',
@@ -53,6 +52,7 @@ function Entries() {
       <>
         <Title name="Entradas" />
         <Table 
+        rowKey="id"
         columns={columns}
         dataSource={entries}
         
