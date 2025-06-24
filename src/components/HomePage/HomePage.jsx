@@ -1,107 +1,62 @@
 import Title from '../Title/Title';
-import React from 'react';
-import { EditOutlined, DeleteOutlined} from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { EyeOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
+import { Link } from 'react-router-dom';
 import "./HomePage.css";
 
 const { Meta } = Card;
+
 const HomePage = () => {
-    
-    return (
-        <>
-            <Title name="Pagina de inicio" />
-            <h2 className='subtitle-home'>Publicaciones recientes</h2>
+  const [entries, setEntries] = useState([]);
 
-        <div className='div-cards'>
-            <Card
-                style={{ width: 300,height: 165}}
-               
-                cover={
-                    <div style={{ backgroundColor: "#4390FD", height: 15 }}></div>
-                     }
+  useEffect(() => {
+    async function getEntry() {
+      const response = await fetch("http://localhost:8080/entries");
+      const data = await response.json();
+      setEntries(data);
+    }
+    getEntry();
+  }, []);
+
+  return (
+    <>
+      <Title name="Pagina de inicio" />
+      <h2 className='subtitle-home'>Publicaciones <span>recientes</span></h2>
+
+      <div className='div-cards'>
+        {entries.length === 0
+          ? Array.from({ length: 5 }).map((_, i) => (
+              <Card
+                key={i}
+                loading={true}
+                style={{ width: 300, height: 165 }}
+                cover={<div style={{ backgroundColor: "#4390FD", height: 15 }}></div>}
+              />
+            ))
+          : entries.map((entry, index) => (
+              <Card
+                key={index}
+                style={{ width: 300, height: 165 }}
+                cover={<div style={{ backgroundColor: "#4390FD", height: 15 }}></div>}
                 actions={[
-                <DeleteOutlined key= "delete"/>,
-                <EditOutlined key="edit" />
-                
+                  <Link to="/entries" >
+  <EyeOutlined />
+</Link>
+
                 ]}
-                >
-                    <Meta
-                    avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
-                    title="Titulo de la entrada"
-                    description="descripcion de la entrada"
-                    />
-            </Card>
-
-            <Card
-                style={{ width: 300,height: 165}}
-               
-                cover={
-                    <div style={{ backgroundColor: "#4390FD", height: 15 }}></div>
-                     }
-                actions={[
-                <DeleteOutlined key= "delete"/>,
-                <EditOutlined key="edit" />
                 
-                ]}
-                >
-                    <Meta
-                    avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
-                    title="Titulo de la entrada"
-                    description="descripcion de la entrada"
-                    />
-            </Card>
-
-            <Card
-                style={{ width: 300,height: 165}}
-               
-                cover={
-                    <div style={{ backgroundColor: "#4390FD", height: 15 }}></div>
-                     }
-                actions={[
-                <DeleteOutlined key= "delete"/>,
-                <EditOutlined key="edit" />
-                
-                ]}
-                >
-                    <Meta
-                    avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
-                    title="Titulo de la entrada"
-                    description="descripcion de la entrada"
-                    />
-            </Card>
-
-            <Card
-                style={{ width: 300,height: 165}}
-               
-                cover={
-                    <div style={{ backgroundColor: "#4390FD", height: 15 }}></div>
-                     }
-                actions={[
-                <DeleteOutlined key= "delete"/>,
-                <EditOutlined key="edit" />
-                
-                ]}
-                >
-                    <Meta
-                    avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
-                    title="Titulo de la entrada"
-                    description="descripcion de la entrada"
-                    />
-            </Card>
-
-            
-
-            
-            
-
-          
-        </div>
-        </>
-
-    )
+              >
+                <Meta
+                  avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
+                  title={entry.title}
+                  description={entry.text}
+                />
+              </Card>
+            ))}
+      </div>
+    </>
+  );
 };
-
-
-
 
 export default HomePage;

@@ -6,10 +6,11 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import HomePage from "./components/HomePage/HomePage";
 import EntryLog from "./components/EntryLogs/EntryLog";
 import RecycleBin from "./components/RecycleBin/RecycleBin";
+import Entries from "./components/Entries/Entries";
 
 // estas dos lineas se van cuando existan los componentes author y entries
 const Author = () => <h2>Pagina de autores</h2>;
-const Entries = () => <h2>Pagina de entradas</h2>;
+//const Entries = () => <h2>Pagina de entradas</h2>;
 
 const App = () => {
   // Cargar tema inicial desde localStorage
