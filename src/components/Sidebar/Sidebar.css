@@ -8,7 +8,7 @@
   position: relative;
   padding: 0 16px 0 32px;
   transition: padding ease 0.3s;
-  overflow: hidden;
+  
 }
 
 .sider[data-collapsed="true"] header {

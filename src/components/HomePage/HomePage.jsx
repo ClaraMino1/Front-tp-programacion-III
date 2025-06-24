@@ -35,7 +35,7 @@ const HomePage = () => {
                 cover={<div style={{ backgroundColor: "#4390FD", height: 15 }}></div>}
               />
             ))
-          : entries.map((entry, index) => (
+          : entries.slice(-5).map((entry, index) => (
               <Card
                 key={index}
                 style={{ width: 300, height: 165 }}
