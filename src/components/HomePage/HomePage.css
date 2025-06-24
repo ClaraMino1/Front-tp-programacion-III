@@ -1,0 +1,11 @@
+.div-cards{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 50px;
+    margin-top: 40px;
+}
+
+.subtitle-home{
+    margin-top: 25px;
+}
+
