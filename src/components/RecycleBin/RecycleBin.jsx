@@ -55,14 +55,14 @@ function RecycleBin() {
       await fetch(`http://localhost:8080/entries/restore/${id}`, {
         method: 'PATCH'
       });
-      getDeletedAuthors();
+      getDeletedEntries();
     }
 
     async function deleteEntryPermanently(id) {
       await fetch(`http://localhost:8080/entries/physical/${id}`, {
         method: 'DELETE'
       });
-      getDeletedAuthors();
+      getDeletedEntries();
     }
 
     // definimos las columnas para la tabla de entradas eliminadas
