@@ -7,10 +7,7 @@ import HomePage from "./components/HomePage/HomePage";
 import EntryLog from "./components/EntryLogs/EntryLog";
 import RecycleBin from "./components/RecycleBin/RecycleBin";
 import Entries from "./components/Entries/Entries";
-
-// estas dos lineas se van cuando existan los componentes author y entries
-const Author = () => <h2>Pagina de autores</h2>;
-//const Entries = () => <h2>Pagina de entradas</h2>;
+import AuthorsPage from "./components/AuthorsPage/AuthorsPage";
 
 const App = () => {
   // Cargar tema inicial desde localStorage
@@ -44,7 +41,7 @@ const App = () => {
           <div className="main-content">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/author" element={<Author />} />
+              <Route path="/author" element={<AuthorsPage />} />
               <Route path="/entries" element={<Entries />} />
               <Route path="/entryLogs" element={<EntryLog />} />
               <Route path="/recycleBin" element={<RecycleBin />} />

@@ -31,7 +31,7 @@ const HomePage = () => {
               <Card
                 key={i}
                 loading={true}
-                style={{ width: 300, height: 165 }}
+                className='cardAnt'
                 cover={<div style={{ backgroundColor: "#4390FD", height: 15 }}></div>}
               />
             ))

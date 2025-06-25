@@ -3,8 +3,6 @@ import Title from '../../components/Title/Title';
 import { Table } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
-
-
 const columns = [
   {
     title: 'Id',
