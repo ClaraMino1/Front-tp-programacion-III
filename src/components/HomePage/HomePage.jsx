@@ -4,8 +4,7 @@ import { EyeOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
 import { Link } from 'react-router-dom';
 import "./HomePage.css";
-
-//const { Meta } = Card;
+import FormCreate from '../FormCreate/FormCreate';
 
 const HomePage = () => {
   const [entries, setEntries] = useState([]); //entries array vacío
@@ -60,6 +59,8 @@ const HomePage = () => {
             ))}
       </div>
       </div>
+      
+      <FormCreate/>
     </>
   );
 };
