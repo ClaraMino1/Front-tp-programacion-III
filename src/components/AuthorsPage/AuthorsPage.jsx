@@ -4,30 +4,19 @@ import Title from "../Title/Title"
 import { Table } from "antd";
 import { useEffect, useState } from "react";
 import { LoadingOutlined } from '@ant-design/icons';
+import { fetchAuthors } from "../../services/AuthorsService";
+import FormCreateAuthor from '../FormCreate/FormCreateAuthor';
 
 function AuthorsPage(){
-const [authors, setAuthors] = useState([]);
-
-async function getAuthors() {
-    const response = await fetch(
-        "http://localhost:8080/authors"
-    );
-    const data = await response.json();
-    setAuthors(Array.isArray(data) ? data : [data]);
-}
-
-// async function loadAuthors() {
-//     try {
-//       const authors = await fetchAuthors();
-//       setAuthors(authors);
-//     } catch (error) {
-//       console.error("Error cargando autores:", error);
-//     }
-//   }
-
-useEffect(() => {
-  getAuthors();
-}, []);
+ const [authors, setAuthors] = useState([]);
+  
+  const loadAuthors = () => {
+    fetchAuthors().then(setAuthors);
+  };
+  
+  useEffect(() => {
+    loadAuthors(); 
+  }, []);
 
 const columns = [
     {
@@ -63,6 +52,8 @@ return (
             <LoadingOutlined spin size="large" />
           </div>
         )}}/>
+    
+    <FormCreateAuthor onCreateSuccess={loadAuthors} />
   </>
 )
 }

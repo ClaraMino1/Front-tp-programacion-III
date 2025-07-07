@@ -4,7 +4,7 @@ import { EyeOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
 import { Link } from 'react-router-dom';
 import "./HomePage.css";
-import FormCreate from '../FormCreate/FormCreate';
+import FormCreateEntry from '../FormCreate/FormCreateEntry';
 import { fetchEntries } from '../../services/EntriesService';
 
 const HomePage = () => {
@@ -59,7 +59,7 @@ const HomePage = () => {
       </div>
       
       {/* prop para que se vuelvan a cargar las entradas en caso de que se cree una nueva */}
-      <FormCreate onCreateSuccess={loadEntries}/> 
+      <FormCreateEntry onCreateSuccess={loadEntries}/> 
     </>
   );
 };

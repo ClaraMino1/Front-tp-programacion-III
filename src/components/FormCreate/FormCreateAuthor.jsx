@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Select, Space,message  } from 'antd';
-const { Option } = Select;
+import { Button, Form, Input, Space  } from 'antd';
 
 const layout = {
   labelCol: { span: 8 },
@@ -12,7 +11,7 @@ const tailLayout = {
 
 
 
-const FormCreate = ({ onCreateSuccess }) => {
+const FormCreateAuthor = ({ onCreateSuccess }) => {
   const [form] = Form.useForm(); //hook de ant. sirve para despues resetear los campos
 
   const onReset = () => {
@@ -54,10 +53,9 @@ async function getAuthors() {
 const onFinish = async (values) => {
   const body = {
     ...values, //copia todos los campos del formulario tal como están
-    id_author: parseInt(values.id_author), //sobrescribe el campo id_author. se pasa de string a int (por defecto el form es string y el back espera un id_author int) 
   };
 
-  fetch('http://localhost:8080/entries', {
+  fetch('http://localhost:8080/authors', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
@@ -88,29 +86,18 @@ const onFinish = async (values) => {
       style={{ maxWidth: 600 }}
       onFinish={onFinish} // Se ejecuta al hacer submit
     >
-      <Form.Item name="title" label="Titulo" rules={[{ required: true }]}>
+      <Form.Item name="name" label="Nombre" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
 
-      <Form.Item name="text" label="Texto" rules={[{ required: true }]}>
+      <Form.Item name="email" label="Email" rules={[{ required: true }]}>
         <Input />
-      </Form.Item>
-
-      <Form.Item name="id_author" label="Autor" rules={[{ required: true }]}>
-        <Select
-          placeholder="Seleccione un autor"
-        >
-          {authors.map((item)=>{ //muestra los autores disponibles
-            return <Option key={item.id} value={item.id}>{item.name}</Option>;
-          })}
-        
-        </Select>
       </Form.Item>
       
       <Form.Item {...tailLayout}>
         <Space>
           <Button type="primary" htmlType="submit" loading={loadings[0]} onClick={() => enterLoading(0)}>
-            Crear entrada
+            Crear Autor
           </Button>
           <Button htmlType="button" onClick={onReset}>
             Reset
@@ -121,4 +108,4 @@ const onFinish = async (values) => {
     </Form>
   );
 };
-export default FormCreate;
+export default FormCreateAuthor;
