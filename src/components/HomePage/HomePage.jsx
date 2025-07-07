@@ -5,21 +5,19 @@ import { Avatar, Card } from 'antd';
 import { Link } from 'react-router-dom';
 import "./HomePage.css";
 import FormCreate from '../FormCreate/FormCreate';
+import { fetchEntries } from '../../services/EntriesService';
 
 const HomePage = () => {
-  const [entries, setEntries] = useState([]); //entries array vacío
-  
-      async function getEntries() {
-          const response = await fetch(
-              "http://localhost:8080/entries"
-          );
-          const data = await response.json();
-          setEntries(data); //actualiza el estado de entries
-      }
-  
-      useEffect(() => {//Cuando el componente se cree, ejecuta la función getEntries
-          getEntries();
-      }, []); 
+  const [entries, setEntries] = useState([]);
+
+  // Función reutilizable para cargar entradas
+  const loadEntries = () => {
+    fetchEntries().then(setEntries);
+  };
+
+  useEffect(() => {
+    loadEntries(); // se ejecuta al montar el componente
+  }, []);
 
   return (
     <>
@@ -61,7 +59,7 @@ const HomePage = () => {
       </div>
       
       {/* prop para que se vuelvan a cargar las entradas en caso de que se cree una nueva */}
-      <FormCreate onCreateSuccess={getEntries}/> 
+      <FormCreate onCreateSuccess={loadEntries}/> 
     </>
   );
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Title from '../../components/Title/Title';
 import { Table } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-
+import { fetchEntries } from '../../services/EntriesService';
 
 const columns = [
   {
@@ -33,19 +33,16 @@ const columns = [
 ]
 
 function Entries() {
-    const [entries, setEntries] = useState([]); //entries array vacío
-
-    async function getEntries() {
-        const response = await fetch(
-            "http://localhost:8080/entries"
-        );
-        const data = await response.json();
-        setEntries(data); //actualiza el estado de entries
-    }
-
-    useEffect(() => {//Cuando el componente se cree, ejecuta la función getEntries
-        getEntries();
-    }, []); 
+  const [entries, setEntries] = useState([]);
+  
+  // Función reutilizable para cargar entradas
+  const loadEntries = () => {
+    fetchEntries().then(setEntries);
+  };
+  
+  useEffect(() => {
+    loadEntries(); 
+  }, []);
 
     return(
       <>
