@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Space  } from 'antd';
+import { useFormUtils } from '../../hooks/useFormUtils';
 
 const layout = {
   labelCol: { span: 8 },
@@ -9,45 +10,8 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-
-
 const FormCreateAuthor = ({ onCreateSuccess }) => {
-  const [form] = Form.useForm(); //hook de ant. sirve para despues resetear los campos
-
-  const onReset = () => {
-    form.resetFields();
-  };
-
-const [loadings, setLoadings] = useState([]); //para el boton cargando
-
-const enterLoading = (index) => {
-  setLoadings((prevLoadings) => {
-    const newLoadings = [...prevLoadings];
-    newLoadings[index] = true;
-    return newLoadings;
-  });
-
-  setTimeout(() => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = false;
-      return newLoadings;
-    });
-  }, 3000);
-};
-  //trae los autores disponibles para mostrarlos como opciones
-const [authors, setAuthors] = useState([]); //authors array vacío
-async function getAuthors() {
-          const response = await fetch(
-              "http://localhost:8080/authors"
-          );
-          const data = await response.json();
-          setAuthors(data); //actualiza el estado
-      }
-  
-      useEffect(() => {//Cuando el componente se cree, ejecuta la función
-          getAuthors();
-      }, []); 
+  const { form, loadings, onReset, enterLoading } = useFormUtils();
  
 // Función para manejar el envío del formulario
 const onFinish = async (values) => {

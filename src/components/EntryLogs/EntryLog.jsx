@@ -4,6 +4,7 @@ import Title from '../../components/Title/Title';
 import { Table } from 'antd';
 import { useEffect, useState } from "react";
 import { LoadingOutlined } from '@ant-design/icons';
+import { fetchEntryLogs } from '../../services/EntryLogsService';
 
 const columns = [
   {
@@ -31,17 +32,13 @@ const columns = [
 
 function EntryLog() {
     const [entrylogs, setEntryLog] = useState([]);
-
-    async function getEntryLog() {
-        const response = await fetch(
-            "http://localhost:8080/entrylogs"
-        );
-        const data = await response.json();
-        setEntryLog(data);
-    }
-
+      
+    const loadEntryLogs = () => {
+      fetchEntryLogs().then(setEntryLog);
+    };
+      
     useEffect(() => {
-        getEntryLog();
+      loadEntryLogs(); 
     }, []);
 
     return(

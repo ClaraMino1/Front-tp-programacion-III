@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Space,message  } from 'antd';
+import { useFormUtils } from '../../hooks/useFormUtils';
+
 const { Option } = Select;
 
 const layout = {
@@ -10,32 +12,9 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-
-
 const FormCreateEntry = ({ onCreateSuccess }) => {
-  const [form] = Form.useForm(); //hook de ant. sirve para despues resetear los campos
+  const { form, loadings, onReset, enterLoading } = useFormUtils();
 
-  const onReset = () => {
-    form.resetFields();
-  };
-
-const [loadings, setLoadings] = useState([]); //para el boton cargando
-
-const enterLoading = (index) => {
-  setLoadings((prevLoadings) => {
-    const newLoadings = [...prevLoadings];
-    newLoadings[index] = true;
-    return newLoadings;
-  });
-
-  setTimeout(() => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = false;
-      return newLoadings;
-    });
-  }, 3000);
-};
   //trae los autores disponibles para mostrarlos como opciones
 const [authors, setAuthors] = useState([]); //authors array vacío
 async function getAuthors() {
