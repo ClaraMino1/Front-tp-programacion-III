@@ -9,13 +9,33 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
-const FormCreate = () => {
+
+
+
+const FormCreate = ({ onCreateSuccess }) => {
   const [form] = Form.useForm(); //hook de ant. sirve para despues resetear los campos
 
   const onReset = () => {
     form.resetFields();
   };
 
+const [loadings, setLoadings] = useState([]); //para el boton cargando
+
+const enterLoading = (index) => {
+  setLoadings((prevLoadings) => {
+    const newLoadings = [...prevLoadings];
+    newLoadings[index] = true;
+    return newLoadings;
+  });
+
+  setTimeout(() => {
+    setLoadings((prevLoadings) => {
+      const newLoadings = [...prevLoadings];
+      newLoadings[index] = false;
+      return newLoadings;
+    });
+  }, 3000);
+};
   //trae los autores disponibles para mostrarlos como opciones
 const [authors, setAuthors] = useState([]); //authors array vacío
 async function getAuthors() {
@@ -49,7 +69,12 @@ const onFinish = async (values) => {
 
     return JSON.parse(text);
   })
-  
+  .then(() => {
+        if (onCreateSuccess) {
+          onCreateSuccess(); //vuelve a cargar las entradas en HomePage
+        }
+        form.resetFields(); // limpia el formulario
+      })
   .catch((error) => {
     console.error('Error al enviar:', error);
   });
@@ -73,30 +98,18 @@ const onFinish = async (values) => {
 
       <Form.Item name="id_author" label="Autor" rules={[{ required: true }]}>
         <Select
-          placeholder="Selecciona o crea un autor"
+          placeholder="Seleccione un autor"
         >
           {authors.map((item)=>{ //muestra los autores disponibles
             return <Option key={item.id} value={item.id}>{item.name}</Option>;
           })}
         
-          {/* <Option value="create">Nuevo autor</Option> */}
         </Select>
       </Form.Item>
-      {/* <Form.Item
-        noStyle
-        shouldUpdate={(prevValues, currentValues) => prevValues.author !== currentValues.author}
-      >
-        {({ getFieldValue }) => // Si el usuario selecciona la opción Nuevo autor (value="create"), entonces se renderiza un nuevo campo de Input (createAuthor) para que el usuario pueda escribir el nombre del nuevo autor.
-          getFieldValue('id_author') === 'create' ? (
-            <Form.Item name="createAuthor" label="Nuevo autor" rules={[{ required: true }]}>
-              <Input />
-            </Form.Item>
-          ) : null
-        }
-      </Form.Item> */}
+      
       <Form.Item {...tailLayout}>
         <Space>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loadings[0]} onClick={() => enterLoading(0)}>
             Crear entrada
           </Button>
           <Button htmlType="button" onClick={onReset}>

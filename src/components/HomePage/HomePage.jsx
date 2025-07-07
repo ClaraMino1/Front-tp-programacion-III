@@ -60,7 +60,8 @@ const HomePage = () => {
       </div>
       </div>
       
-      <FormCreate/>
+      {/* prop para que se vuelvan a cargar las entradas en caso de que se cree una nueva */}
+      <FormCreate onCreateSuccess={getEntries}/> 
     </>
   );
 };
