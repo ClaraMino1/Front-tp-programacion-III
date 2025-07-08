@@ -79,7 +79,9 @@ const HomePage = () => {
                       < EyeOutlined />
                     </Link>,
 
-                    <DeleteOutlined />
+                    <DeleteOutlined
+                      className='delete-icon'
+                    />
 
                   ]}
                   

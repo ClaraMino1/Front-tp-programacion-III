@@ -32,6 +32,8 @@
       key: 'creation_date',
     },
     {
+      title: 'Eliminar',
+      dataIndex: 'delete',
       key: 'delete',
       //debe ir text aunque no se use porque render interpreta dos parámetros en ese órden
       //record = todo el contenido de la fila: id,id_author,title,text,creation_date
@@ -45,7 +47,7 @@
               cancelText="Cancelar"
         >
           <DeleteOutlined
-            style={{ color: 'red', cursor: 'pointer' }}
+            style={{ color: '#ec2525'}}
           />
         </Popconfirm>
       )

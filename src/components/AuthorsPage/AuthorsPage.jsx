@@ -1,9 +1,9 @@
 import "./AuthorsPage.css"
 import React from 'react';
 import Title from "../Title/Title"
-import { Table,Button, Drawer } from "antd";
+import { Table,Button, Drawer,Popconfirm } from "antd";
 import { useEffect, useState } from "react";
-import { LoadingOutlined,FormOutlined } from '@ant-design/icons';
+import { LoadingOutlined,FormOutlined,DeleteOutlined } from '@ant-design/icons';
 import { fetchAuthors } from "../../services/AuthorsService";
 import FormCreateAuthor from '../FormCreate/FormCreateAuthor';
 
@@ -42,7 +42,37 @@ const columns = [
       dataIndex: "email",     // Muestra {record.name}
       key: "email"            // Clave de la columna
     },
+    {
+      title: 'Eliminar',
+      dataIndex: 'delete',
+      key: 'delete',
+      //debe ir text aunque no se use porque render interpreta dos parámetros en ese órden
+      //record = todo el contenido de la fila: id_author,nombre,email
+      render: (_,record) => (
+        <Popconfirm
+              title= {`¿Desea eliminar el autor "${record.name}"?`}
+              onConfirm={async () => {
+                await deleteAuthor(record.id) //se le pasa el id a eliminar
+                 }} 
+              okText="Sí, eliminar"
+              cancelText="Cancelar"
+        >
+          <DeleteOutlined
+            style={{ color: '#ec2525'}}
+          />
+        </Popconfirm>
+      )
+    }
   ];
+
+  async function deleteAuthor(id) {
+    await fetch(
+      `http://localhost:8080/authors/${id} `,{
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json'} }
+      );
+    loadAuthors();
+  }
 return (
   <>
   <Title name="Autores" />

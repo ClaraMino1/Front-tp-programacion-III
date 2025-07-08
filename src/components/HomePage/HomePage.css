@@ -50,3 +50,7 @@
 .subtitle-home span:hover::after {
      width: 100%; /*underlinellega al final */
 }
+
+.delete-icon:hover{
+    color: #ec2525 !important;
+}
