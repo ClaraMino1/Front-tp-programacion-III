@@ -1,9 +1,9 @@
 import "./AuthorsPage.css"
 import React from 'react';
 import Title from "../Title/Title"
-import { Table } from "antd";
+import { Table,Button, Drawer } from "antd";
 import { useEffect, useState } from "react";
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined,FormOutlined } from '@ant-design/icons';
 import { fetchAuthors } from "../../services/AuthorsService";
 import FormCreateAuthor from '../FormCreate/FormCreateAuthor';
 
@@ -17,6 +17,14 @@ function AuthorsPage(){
   useEffect(() => {
     loadAuthors(); 
   }, []);
+
+  const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+      setOpen(true);
+    };
+    const onClose = () => {
+      setOpen(false);
+    };
 
 const columns = [
     {
@@ -38,6 +46,20 @@ const columns = [
 return (
   <>
   <Title name="Autores" />
+
+  <Button type="primary" onClick={showDrawer} icon={<FormOutlined />} style={{width:250}}>
+        Nuevo Autor
+  </Button>
+
+  <Drawer 
+    title="Ingresar un nuevo autor"
+    onClose={onClose}
+    open={open}
+  >
+      {/* prop para que se vuelvan a cargar las entradas en caso de que se cree una nueva */}
+    <FormCreateAuthor onCreateSuccess={loadAuthors}/>
+  </Drawer>  
+
     <Table 
       rowKey="id"
       style={{ width: "95%" }} 
@@ -52,8 +74,7 @@ return (
             <LoadingOutlined spin size="large" />
           </div>
         )}}/>
-    
-    <FormCreateAuthor onCreateSuccess={loadAuthors} />
+
   </>
 )
 }
