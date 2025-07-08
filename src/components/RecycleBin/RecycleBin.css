@@ -1,0 +1,29 @@
+.tabs{
+    width: 95%;
+}
+
+.restore-btn, .delete-btn {
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Restaurar: color celeste */
+.restore-btn {
+  color: #1da1f2; /* celeste estilo Twitter */
+}
+
+.restore-btn:hover {
+  color: #0d8ddb;
+}
+
+/* Eliminar: color rojo */
+.delete-btn {
+  color: #e02424; /* rojo llamativo */
+}
+
+.delete-btn:hover {
+  color: #a61b1b;
+}

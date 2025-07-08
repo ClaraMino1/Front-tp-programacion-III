@@ -1,0 +1,76 @@
+.sider header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-header-bg);
+  border-inline-end: 1px solid var(--color-border);
+  position: relative;
+  padding: 0 16px 0 32px;
+  transition: padding ease 0.3s;
+  
+}
+
+.sider[data-collapsed="true"] header {
+  padding-left: 28px;
+}
+
+.sider .collapsedLogo,
+.sider .expandedLogo {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.sider .collapsedLogo {
+  color: #1677ff;
+}
+
+.sider .expandedLogo {
+  opacity: 1;
+  transition: opacity ease 0.3s;
+}
+
+.sider[data-collapsed="true"] .expandedLogo {
+  opacity: 0;
+}
+
+:where(.css-dev-only-do-not-override-36gkoj) a:hover {
+    color: var(--color-text);
+}
+
+/* 
+cuando se activa el modo oscuro, si haces hover sobre el h2 se ve oscuro y no deberia ser asi
+body.dark-mode :where(.css-dev-only-do-not-override-36gkoj) a:hover {
+  color: #F0F0F0;
+}  */
+
+.sider .toggleButton {
+  color: #fff;
+  background: #1677ff;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  opacity: 0.8;
+  transition: all ease 0.3s;
+ 
+}
+
+.sider[data-collapsed="true"] .toggleButton {
+  position: absolute;
+  right: 0;
+  transform: translate(50%, 0);
+  
+}
+
+.sider ul {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-header-bg);
+  padding: 10px;
+}
+
+.sideMenu {
+  height: 85.8% !important;
+}
+

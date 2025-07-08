@@ -1,0 +1,52 @@
+.home-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.div-cards{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 70%;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.subtitle-home{
+    text-align: center;
+    font-size: 2.3em;
+    margin-bottom: .6em;
+    margin-top: .5em;
+}
+
+.subtitle-home span {
+    color: #4390FD;
+    position: relative;
+    display: inline-block;
+}
+
+.subtitle-home span.animate::after {
+    width: 100%; /* Se anima al 100% */
+}
+
+.ant-card{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.create-button{
+    margin: auto;
+}
+
+.subtitle-home span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px; /* espacio entre texto y línea */
+    width: 0%; /*underline comienza en cero*/
+    height: 3px;
+    background-color: currentColor;
+    transition: width 0.8s ease;
+}
+
+.subtitle-home span:hover::after {
+     width: 100%; /*underlinellega al final */
+}
