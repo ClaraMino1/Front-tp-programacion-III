@@ -5,7 +5,7 @@ import { useFormUtils } from '../../hooks/useFormUtils';
 const { Option } = Select;
 
 const layout = {
-  labelCol: { span: 8 },
+  labelCol: { span: 5 },
   wrapperCol: { span: 16 },
 };
 const tailLayout = {
@@ -64,15 +64,14 @@ const onFinish = async (values) => {
       {...layout} //aplica a todos los items lo que se definió en layout(labelCol,wrapperCol)
       form={form}
       name="createInput"
-      style={{ maxWidth: 600 }}
       onFinish={onFinish} // Se ejecuta al hacer submit
     >
       <Form.Item name="title" label="Titulo" rules={[{ required: true }]}>
-        <Input />
+        <Input placeholder="Ingrese un título"/>
       </Form.Item>
 
       <Form.Item name="text" label="Texto" rules={[{ required: true }]}>
-        <Input />
+        <Input.TextArea placeholder="Ingrese el contenido" style={{height:200}}/>
       </Form.Item>
 
       <Form.Item name="id_author" label="Autor" rules={[{ required: true }]}>
