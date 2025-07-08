@@ -1,6 +1,6 @@
 import React from 'react';
 import "./RecycleBin.css";
-import { Tabs, Table, Popconfirm, message } from 'antd';
+import { Tabs, Table, Popconfirm } from 'antd';
 import Title from '../Title/Title';
 import { useEffect, useState } from "react";
 import { LoadingOutlined, RollbackOutlined, DeleteOutlined} from '@ant-design/icons';

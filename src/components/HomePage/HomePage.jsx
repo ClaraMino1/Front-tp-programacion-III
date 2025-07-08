@@ -1,6 +1,6 @@
 import Title from '../Title/Title';
 import React, { useEffect, useState } from 'react';
-import { EyeOutlined,FormOutlined  } from '@ant-design/icons';
+import { EyeOutlined,FormOutlined,DeleteOutlined  } from '@ant-design/icons';
 import { Avatar, Card,Button, Drawer} from 'antd';
 import { Link } from 'react-router-dom';
 import "./HomePage.css";
@@ -76,8 +76,10 @@ const HomePage = () => {
                   cover={<div style={{ backgroundColor: "#4390FD", height: 15 }}></div>}
                   actions={[
                     <Link to="/entries" >
-                    <EyeOutlined />
-                    </Link>
+                      < EyeOutlined />
+                    </Link>,
+
+                    <DeleteOutlined />
 
                   ]}
                   
