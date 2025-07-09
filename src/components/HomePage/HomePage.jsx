@@ -1,6 +1,6 @@
 import Title from '../Title/Title';
 import React, { useEffect, useState } from 'react';
-import { EyeOutlined,FormOutlined,DeleteOutlined  } from '@ant-design/icons';
+import { EyeOutlined,FormOutlined,StarOutlined  } from '@ant-design/icons';
 import { Avatar, Card,Button, Drawer} from 'antd';
 import { Link } from 'react-router-dom';
 import "./HomePage.css";
@@ -78,10 +78,9 @@ const HomePage = () => {
                     <Link to="/entries" >
                       < EyeOutlined />
                     </Link>,
-
-                    <DeleteOutlined
-                      className='delete-icon'
-                    />
+                    
+                    //entradas marcadas como favoritas
+                    <StarOutlined className='fav-icon'/>
 
                   ]}
                   

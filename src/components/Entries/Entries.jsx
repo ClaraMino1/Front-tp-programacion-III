@@ -1,7 +1,7 @@
   import React, { useEffect, useState } from 'react';
   import Title from '../../components/Title/Title';
   import { Table,Popconfirm } from 'antd';
-  import { LoadingOutlined,DeleteOutlined } from '@ant-design/icons';
+  import { LoadingOutlined,DeleteOutlined,StarOutlined } from '@ant-design/icons';
   import { fetchEntries } from '../../services/EntriesService';
 
   function Entries() {
@@ -50,6 +50,18 @@
             style={{ color: '#ec2525'}}
           />
         </Popconfirm>
+      )
+    },
+    {
+      title: 'Marcar como favorito',
+      dataIndex: 'fav',
+      key: 'fav',
+      render: (_,record) => (
+        
+          <StarOutlined
+            style={{ color: '#ffd000',cursor:'pointer'}}
+          />
+        
       )
     }
   ]

@@ -51,6 +51,6 @@
      width: 100%; /*underlinellega al final */
 }
 
-.delete-icon:hover{
-    color: #ec2525 !important;
+.fav-icon:hover{
+    color: #ffd000 !important;
 }
