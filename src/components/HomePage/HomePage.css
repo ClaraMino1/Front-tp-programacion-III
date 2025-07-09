@@ -54,3 +54,12 @@
 .fav-icon:hover{
     color: #ffd000 !important;
 }
+
+.no-data-card{
+    margin-left: 100px;
+    margin-top: 40px;
+    font-size: 18px;
+    color: #888;
+    grid-column: 1 / -1; /* Ocupa desde la primera columna hasta la última */
+    text-align: center;
+}

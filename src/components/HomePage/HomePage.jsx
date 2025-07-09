@@ -10,6 +10,7 @@ import { fetchEntries } from '../../services/EntriesService';
 const HomePage = () => {
   const [entries, setEntries] = useState([]);
   const [animate, setAnimate] = useState(false); //para que la animación inicie al cargar la página
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Espera un pequeño tiempo antes de animar
@@ -20,10 +21,14 @@ const HomePage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Función reutilizable para cargar entradas
+  // Función para cargar entradas
   const loadEntries = () => {
-    fetchEntries().then(setEntries);
-  };
+      setLoading(true);
+      fetchEntries().then((data) => {
+        setEntries(data);
+        setLoading(false);
+      });
+    };
 
   useEffect(() => {
     loadEntries(); // se ejecuta al montar el componente
@@ -60,16 +65,22 @@ const HomePage = () => {
       
 
         <div className='div-cards'>
-          {entries.length === 0 //si el array está vacío muestra 5 tarjetas con el efecto de carga
-            ? Array.from({ length: 6 }).map((_, i) => ( //crea un array con 6 elementos vacíos. _ porque no se usa el primer parámetro(elemento)
-                <Card
-                  style={{ width: 280, height: 165 }}
-                  key={i} //indice del array
-                  loading={true}
-                  cover={<div style={{ backgroundColor: "#4390FD", height: 15,width:450 }}></div>}
-                />
-              ))
-            : entries.slice(-6).map((entry, index) => ( //sino muestra las últimas 5 entradas
+          {entries.length === 0 ? (loading ? (Array.from({ length: 6 }) //mostrar tarjetas cargando...
+            .map((_, i) => (
+              <Card
+                style={{ width: 280, height: 165 }}
+                key={i}
+                loading={true}
+                cover={<div style={{ backgroundColor: "#4390FD", height: 15, width: 450 }}></div>}
+              />
+            ))
+          ) : (
+            // Cuando terminó de cargar pero no hay entradas
+            <div className='no-data-card'>
+              No hay entradas disponibles.
+            </div>
+              )
+          ): entries.slice(-6).map((entry, index) => ( //sino muestra las últimas 5 entradas
                 <Card
                   key={index}
                   style={{ width: 280, height: 165 }}

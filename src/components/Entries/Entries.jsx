@@ -5,6 +5,10 @@
   import { fetchEntries } from '../../services/EntriesService';
 
   function Entries() {
+
+    const [entries, setEntries] = useState([]);
+    const [loading, setLoading] = useState(true); //para saber si el spinning cargando ya terminó. si no hay entradas mostrar un mensaje
+
     const columns = [
     {
       title: 'Id', //header
@@ -66,11 +70,13 @@
     }
   ]
 
-  const [entries, setEntries] = useState([]);
-    
   // Función para cargar entradas
   const loadEntries = () => {
-    fetchEntries().then(setEntries);
+    setLoading(true);
+    fetchEntries().then((data) => {
+      setEntries(data);
+      setLoading(false);
+    });
   };
     
   useEffect(() => {
@@ -97,12 +103,15 @@
       size="small" //tamaño de celdas
       pagination={{ pageSize: 9 }} //hasta 9 entradas por página
       loading={{
-        spinning: !entries.length, // si entries está vacío → mostrar loading
+        spinning: loading,
         indicator: (
           <div style={{ marginTop: "58px" }}>
             <LoadingOutlined spin size="large" />
           </div>
         )
+      }}
+      locale={{
+        emptyText: !loading ? undefined : "" //muestra el no data que trae ant
       }}
       style={{ width: "95%" }}/>
       

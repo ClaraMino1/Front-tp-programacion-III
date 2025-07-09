@@ -12,10 +12,16 @@ function AuthorsPage(){
   const [autorAEditar, setAutorAEditar] = useState(null); // Datos del autor a editar
   const [authors, setAuthors] = useState([]); //Lista de autores que se va a mostrar en la tabla
   const [open, setOpen] = useState(false); //Controla si el Drawer está abierto o cerrado
+  const [loading, setLoading] = useState(true); //para saber si el spinning cargando ya terminó. si no hay autores mostrar un mensaje
+
 
   //carga la lista de autores de la bd
   const loadAuthors = () => {
-    fetchAuthors().then(setAuthors);
+    setLoading(true);
+    fetchAuthors().then((data) => {
+      setAuthors(data);
+      setLoading(false);
+    });
   };
 
   //eliminar un autor. borrado lógico
@@ -133,13 +139,18 @@ return (
       pagination={{ pageSize: 9 }} 
       bordered 
       size="small"
-      loading={{
-      spinning: !authors.length,
-      indicator: (
-          <div style={{ marginTop: "58px" }}>
-            <LoadingOutlined spin size="large" />
-          </div>
-      )}}/>
+      loading={{ //Mientras cargando === true => se ve el spinner.
+        spinning: loading,
+        indicator: (
+            <div style={{ marginTop: "58px" }}>
+              <LoadingOutlined spin size="large" />
+            </div>
+        )
+      }}
+      locale={{
+      emptyText: !loading ? undefined : "" //muestra el no data que trae ant
+      }}
+      />
 
   </>
 )

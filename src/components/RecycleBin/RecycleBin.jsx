@@ -219,6 +219,9 @@ function RecycleBin() {
                   <LoadingOutlined spin size="large"/>
                 </div>
               }}
+              locale={{
+                emptyText: !loading ? undefined : "" //muestra el no data que trae ant
+              }}
               pagination={{
                 pageSize: 9, //cantidad de filas por pagina
               }}
