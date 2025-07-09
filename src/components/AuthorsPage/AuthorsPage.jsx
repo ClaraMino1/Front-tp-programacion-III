@@ -5,11 +5,11 @@ import { Table,Button, Drawer,Popconfirm } from "antd";
 import { useEffect, useState } from "react";
 import { LoadingOutlined,FormOutlined,DeleteOutlined,EditOutlined } from '@ant-design/icons';
 import { fetchAuthors } from "../../services/AuthorsService";
-import FormCreateAuthor from '../FormCreate/FormCreateAuthor';
+import FormAuthor from '../FormCreate/FormAuthor';
 
 function AuthorsPage(){
-  const [modoEdicion, setModoEdicion] = useState(false); // Si es true, el formulario está en modo editar
-  const [autorAEditar, setAutorAEditar] = useState(null); // Datos del autor a editar
+  const [editMode, setEditMode] = useState(false); // Si es true, el formulario está en modo editar
+  const [authorToEdit, setAuthorToEdit] = useState(null); // Datos del autor a editar
   const [authors, setAuthors] = useState([]); //Lista de autores que se va a mostrar en la tabla
   const [open, setOpen] = useState(false); //Controla si el Drawer está abierto o cerrado
   const [loading, setLoading] = useState(true); //para saber si el spinning cargando ya terminó. si no hay autores mostrar un mensaje
@@ -40,14 +40,14 @@ function AuthorsPage(){
 
   //Abrir el Drawer (crear o editar)
   //Si no se pasa ningún argumento cuando se llama a showDrawer(), entonces autor será null
-  const showDrawer = (autor = null) => {
+  const showDrawer = (author = null) => {
     //si le llega un autor se abre el modo edición
-    if (autor) {
-      setModoEdicion(true);
-      setAutorAEditar(autor);
+    if (author) {
+      setEditMode(true);
+      setAuthorToEdit(author);
     } else {
-      setModoEdicion(false);
-      setAutorAEditar(null);
+      setEditMode(false);
+      setAuthorToEdit(null);
     }
     //abre el drawer
     setOpen(true);
@@ -74,6 +74,19 @@ const columns = [
       key: "email"            
     },
     {
+      title: 'Editar',
+      dataIndex: 'edit',
+      key: 'edit',
+      render: (_,record) => (
+        
+        <EditOutlined 
+          //se abre el drawer y le pasa el autor. por ende se abre en modo editar
+          onClick={() => showDrawer(record)} 
+          style={{ cursor:"pointer", color:'#4390FD' }} 
+        />
+      )
+    },
+    {
       title: 'Eliminar',
       dataIndex: 'delete',
       key: 'delete',
@@ -92,19 +105,6 @@ const columns = [
           />
         </Popconfirm>
       )
-    },
-    {
-      title: 'Editar',
-      dataIndex: 'edit',
-      key: 'edit',
-      render: (_,record) => (
-        
-        <EditOutlined 
-          //se abre el drawer y le pasa el autor. por ende se abre en modo editar
-          onClick={() => showDrawer(record)} 
-          style={{ cursor:"pointer", color:'#4390FD' }} 
-        />
-      )
     }
   ];
 
@@ -118,19 +118,19 @@ return (
   </Button>
 
   <Drawer 
-    title={modoEdicion ? `Editar Autor` : `Ingresar un nuevo autor`}// si está en modo edición muestra como titulo del drawer "editar autor" y si no Ingresar un nuevo autor
+    title={editMode ? `Editar Autor` : `Ingresar un nuevo autor`}// si está en modo edición muestra como titulo del drawer "editar autor" y si no Ingresar un nuevo autor
     onClose={onClose}
     open={open}
   >
-  <FormCreateAuthor 
+  <FormAuthor 
     onCreateSuccess={() => { //recarga la tabla y cierra el Drawer
       loadAuthors();
       onClose();
     }}
-    accion={modoEdicion ? "Editar Autor" : "Crear Autor"} // si está en modo edición muestra como titulo del botón del formulario "editar autor" y si no muestra crear autor
-    autor={autorAEditar} // pasa null o un autor. para rellenar campos si está en modo edición
+    action={editMode ? "Editar Autor" : "Crear Autor"} // si está en modo edición muestra como titulo del botón del formulario "editar autor" y si no muestra crear autor
+    author={authorToEdit} // pasa null o un autor. para rellenar campos si está en modo edición
   />
-</Drawer>
+  </Drawer>
 
     <Table 
       rowKey="id"

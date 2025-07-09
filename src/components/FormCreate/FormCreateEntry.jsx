@@ -12,22 +12,33 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-const FormCreateEntry = ({ onCreateSuccess }) => {
+const FormCreateEntry = ({ onCreateSuccess, action,entry}) => {
   const { form, loadings, onReset, enterLoading } = useFormUtils();
 
   //trae los autores disponibles para mostrarlos como opciones
-const [authors, setAuthors] = useState([]); //authors array vacío
-async function getAuthors() {
-          const response = await fetch(
-              "http://localhost:8080/authors"
-          );
-          const data = await response.json();
-          setAuthors(data); //actualiza el estado
-      }
+  const [authors, setAuthors] = useState([]); //authors array vacío
+
+  async function getAuthors() {
+    const response = await fetch(
+        "http://localhost:8080/authors"
+    );
+    const data = await response.json();
+    setAuthors(data); //actualiza el estado
+  }
   
-      useEffect(() => {//Cuando el componente se cree, ejecuta la función
-          getAuthors();
-      }, []); 
+  useEffect(() => {
+    getAuthors();
+    //si la entrada no es null entonces se rellenan los campos del formulario con los valores de la entrada
+    if (entry) {
+      form.setFieldsValue({
+        title: entry.title,
+        text: entry.text,
+        id_author: entry.id_author,
+      });
+    } else {
+      form.resetFields(); // si estás en modo creación, limpia el formulario
+    }
+  }, [entry, form]);
  
 // Función para manejar el envío del formulario
 const onFinish = async (values) => {
@@ -36,27 +47,53 @@ const onFinish = async (values) => {
     id_author: parseInt(values.id_author), //sobrescribe el campo id_author. se pasa de string a int (por defecto el form es string y el back espera un id_author int) 
   };
 
-  fetch('http://localhost:8080/entries', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  })
-  .then(async (res) => {
-    const text = await res.text();// convierte la respuesta a texto plano
+  //si autor no es null. hace un fetch PUT
+    if (entry) {
+      fetch(`http://localhost:8080/entries/${entry.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+    })
+    .then(async (res) => {
+      const text = await res.text();// convierte la respuesta a texto plano
 
-    if (!text) return null;
+      if (!text) return null;
 
-    return JSON.parse(text);
-  })
-  .then(() => {
-        if (onCreateSuccess) {
-          onCreateSuccess(); //vuelve a cargar las entradas en HomePage
-        }
-        form.resetFields(); // limpia el formulario
-      })
-  .catch((error) => {
-    console.error('Error al enviar:', error);
-  });
+      return JSON.parse(text);
+    })
+    .then(() => {
+          if (onCreateSuccess) {
+            onCreateSuccess(); 
+          }
+          form.resetFields(); // limpia el formulario
+        })
+    .catch((error) => {
+      console.error('Error al enviar:', error);
+    });
+    }else{//si no le llega ninguna entrada. hace un fetch POST
+      fetch('http://localhost:8080/entries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+    })
+    .then(async (res) => {
+      const text = await res.text();// convierte la respuesta a texto plano
+
+      if (!text) return null;
+
+      return JSON.parse(text);
+    })
+    .then(() => {
+          if (onCreateSuccess) {
+            onCreateSuccess(); 
+          }
+          form.resetFields(); // limpia el formulario
+        })
+    .catch((error) => {
+      console.error('Error al enviar:', error);
+    });
+
+    }
 };
 
   return (
@@ -88,7 +125,8 @@ const onFinish = async (values) => {
       <Form.Item {...tailLayout}>
         <Space>
           <Button type="primary" htmlType="submit" loading={loadings[0]} onClick={() => enterLoading(0)}>
-            Crear entrada
+            {/* permite que el boton diga crear o editar segun el caso necesario */}
+            {action} 
           </Button>
           <Button htmlType="button" onClick={onReset}>
             Reset

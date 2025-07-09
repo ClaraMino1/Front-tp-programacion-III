@@ -11,21 +11,21 @@ const tailLayout = {
 };
 
 //autor puede ser null si está en modo creación
-const FormCreateAuthor = ({ onCreateSuccess,accion, autor}) => {
+const FormAuthor = ({ onCreateSuccess,action, author}) => {
 
   const { form, loadings, onReset, enterLoading } = useFormUtils();
 
   useEffect(() => {
     //si autor no es null entonces se rellenan los campos del formulario con los valores del autor
-    if (autor) {
+    if (author) {
       form.setFieldsValue({
-        name: autor.name,
-        email: autor.email,
+        name: author.name,
+        email: author.email,
       });
     } else {
       form.resetFields(); // si estás en modo creación, limpia el formulario
     }
-  }, [autor, form]);
+  }, [author, form]);
  
   // Función para manejar el envío del formulario
   const onFinish = async (values) => {
@@ -34,8 +34,8 @@ const FormCreateAuthor = ({ onCreateSuccess,accion, autor}) => {
     };
     
     //si autor no es null. hace un fetch PUT
-    if (autor) {
-      fetch(`http://localhost:8080/authors/${autor.id}`, {
+    if (author) {
+      fetch(`http://localhost:8080/authors/${author.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -49,7 +49,7 @@ const FormCreateAuthor = ({ onCreateSuccess,accion, autor}) => {
     })
     .then(() => {
           if (onCreateSuccess) {
-            onCreateSuccess(); //vuelve a cargar las entradas en HomePage
+            onCreateSuccess(); 
           }
           form.resetFields(); // limpia el formulario
         })
@@ -71,7 +71,7 @@ const FormCreateAuthor = ({ onCreateSuccess,accion, autor}) => {
     })
     .then(() => {
           if (onCreateSuccess) {
-            onCreateSuccess(); //vuelve a cargar las entradas en HomePage
+            onCreateSuccess(); 
           }
           form.resetFields(); // limpia el formulario
         })
@@ -102,7 +102,7 @@ const FormCreateAuthor = ({ onCreateSuccess,accion, autor}) => {
         <Space>
           <Button type="primary" htmlType="submit" loading={loadings[0]} onClick={() => enterLoading(0)}>
             {/* permite que el boton diga crear o editar segun el caso necesario */}
-            {accion} 
+            {action} 
           </Button>
           <Button htmlType="button" onClick={onReset}>
             Reset
@@ -113,4 +113,4 @@ const FormCreateAuthor = ({ onCreateSuccess,accion, autor}) => {
     </Form>
   );
 };
-export default FormCreateAuthor;
+export default FormAuthor;
