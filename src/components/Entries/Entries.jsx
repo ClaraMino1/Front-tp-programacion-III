@@ -75,7 +75,7 @@
       title: 'Eliminar',
       dataIndex: 'delete',
       key: 'delete',
-      //record = todo el contenido de la fila: id,id_author,title,text,creation_date
+      //record = todo el contenido de la fila
       render: (_,record) => (
         <Popconfirm
               title= {`¿Desea eliminar la entrada "${record.title}"?`}

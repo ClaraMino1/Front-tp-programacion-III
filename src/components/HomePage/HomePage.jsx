@@ -1,6 +1,6 @@
 import Title from '../Title/Title';
 import React, { useEffect, useState } from 'react';
-import { EyeOutlined,FormOutlined,StarOutlined  } from '@ant-design/icons';
+import { EyeOutlined,FormOutlined,StarOutlined,StarFilled  } from '@ant-design/icons';
 import { Avatar, Card,Button, Drawer} from 'antd';
 import { Link } from 'react-router-dom';
 import "./HomePage.css";
@@ -11,6 +11,13 @@ const HomePage = () => {
   const [entries, setEntries] = useState([]);
   const [animate, setAnimate] = useState(false); //para que la animación inicie al cargar la página
   const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState({}); //  Estado para controlar si cada entrada es favorita por id 
+    //   Este objeto va a tener una estructura tipo:
+    // {
+    //   1: true,   La entrada con id 1 es favorita
+    //   2: false,  La entrada con id 2 no es favorita
+    //   3: true,   La entrada con id 3 es favorita
+    // }
 
   useEffect(() => {
     // Espera un pequeño tiempo antes de animar
@@ -41,6 +48,14 @@ const HomePage = () => {
   const onClose = () => {
     setOpen(false);
   };
+
+  //Recibe el id de la entrada y actualiza el objeto favorites usando el valor anterior (prev).
+  const toggleFav = (id) => {
+  setFavorites(prev => ({
+    ...prev,
+    [id]: !prev[id] // cambia true a false o viceversa (sobreescribe el valor)
+  }));
+};
  
   return (
     <>
@@ -86,13 +101,23 @@ const HomePage = () => {
                   style={{ width: 280, height: 165 }}
                   cover={<div style={{ backgroundColor: "#4390FD", height: 15 }}></div>}
                   actions={[
-                    <Link to="/entries" >
-                      < EyeOutlined />
+                    <Link to="/entries" key="view">
+                      <EyeOutlined />
                     </Link>,
-                    
-                    //entradas marcadas como favoritas
-                    <StarOutlined className='fav-icon'/>
 
+                    favorites[entry.id] ? (
+                      <StarFilled
+                        key="fav"
+                        onClick={() => toggleFav(entry.id)}
+                        style={{ color: '#ffd000', cursor: 'pointer' }}
+                      />
+                    ) : (
+                      <StarOutlined
+                        key="fav"
+                        onClick={() => toggleFav(entry.id)}
+                        className="fav-icon"
+                      />
+                    )
                   ]}
                   
                 >
