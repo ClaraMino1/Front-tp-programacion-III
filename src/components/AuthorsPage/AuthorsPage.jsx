@@ -1,5 +1,4 @@
 import "./AuthorsPage.css"
-import React from 'react';
 import Title from "../Title/Title"
 import { Table } from "antd";
 import { useEffect, useState } from "react";
